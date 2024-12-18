@@ -16,12 +16,6 @@ This project analyzes consumer preferences and market trends for launching a new
 - Identified key demographic segments.
 - Highlighted trends in purchasing behavior.
 
-## Setup
-To run this project:
-```bash
-pip install -r requirements.txt
-jupyter notebook
-
 ## Dataset
 
 The raw dataset is located in the `data/` folder as `raw_data.csv`.  
@@ -42,3 +36,11 @@ It contains **1,000 rows** and **11 columns** with the following features:
 ### Notes:
 - There are some missing values in the dataset, which will be addressed during the analysis phase.  
 - This dataset serves as the starting point for cleaning, exploration, and analysis.
+
+## Setup
+To run this project:
+```bash
+pip install -r requirements.txt
+jupyter notebook
+
+
