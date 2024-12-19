@@ -1,6 +1,6 @@
 # New Beverage Product Analysis
 
-## Overview
+## Intro
 This project analyzes consumer preferences and market trends for launching a new beverage product. All data used is simulated and does not reflect anything from the companies I have worked for.
 
 ## Tools Used
