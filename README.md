@@ -18,7 +18,6 @@ This project analyzes consumer preferences and market trends for launching a new
 
 ## Dataset
 
-Dataset Description
 The raw dataset is located in the data/ folder as raw_data.csv.
 It contains 9,973 rows and the following columns:
 
