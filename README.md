@@ -22,24 +22,25 @@ Dataset Description
 The raw dataset is located in the data/ folder as raw_data.csv.
 It contains 9,973 rows and the following columns:
 
-Region: Geographic location (e.g., North, South, Central) with inconsistent capitalization (e.g., "NORTH" vs. "north").
-Sales Channel: Sales channels such as Modern Trade or Traditional Trade.
-Company/Provider: Beverage manufacturers, including major and small companies, with some small companies disappearing over time.
-Category: Beverage categories (e.g., Water, Tea, Soft Drinks) with mixed formatting (e.g., "TEA" vs. "Tea").
-Segment: Product subcategories (e.g., flavored water, diet soda).
-Volume Sales (Liters): Sales volume, which may include numbers stored as strings and inconsistent units like liters or kiloliters.
-Avg Price Per Liter (VND): Average price per liter, containing extreme outliers and inconsistencies.
-Growth Rate (%): Growth percentage, with placeholders like "unknown" and irregular values.
-Numeric Distribution (%): Percentage of stores stocking the product.
-Weighted Distribution (%): Sales-weighted distribution of the product across stores.
-Out-of-Stock Rate (%): Percentage of time the product is unavailable, with some extreme values.
-Market Share (%): Share of the market held by the product or company.
-Share of Shelf (%): Percentage of shelf space occupied by the product.
-Trial Rate (%): Percentage of consumers who tried the product.
-Repeat Rate (%): Percentage of consumers who purchased the product again.
-Sales Value (USD): Total sales in USD, with some values stored as strings or containing extreme outliers.
-Time: The sales timeframe, containing inconsistent formats (e.g., "2021-08-01" vs. "August 2021").
-Volume Sales: A supplementary column with mixed units and formats for volume sales (e.g., "70000 liters" vs. "70 kiloliters").
+
+1. Region: Geographic location (e.g., North, South, Central) with inconsistent capitalization (e.g., "NORTH" vs. "north").
+2. Sales Channel: Sales channels such as Modern Trade or Traditional Trade.
+3. Company/Provider: Beverage manufacturers, including major and small companies, with some small companies disappearing over time.
+4. Category: Beverage categories (e.g., Water, Tea, Soft Drinks) with mixed formatting (e.g., "TEA" vs. "Tea").
+5. Segment: Product subcategories (e.g., flavored water, diet soda).
+6. Volume Sales (Liters): Sales volume, which may include numbers stored as strings and inconsistent units like liters or kiloliters.
+7. Avg Price Per Liter (VND): Average price per liter, containing extreme outliers and inconsistencies.
+8. Growth Rate (%): Growth percentage, with placeholders like "unknown" and irregular values.
+9. Numeric Distribution (%): Percentage of stores stocking the product.
+10. Weighted Distribution (%): Sales-weighted distribution of the product across stores.
+11. Out-of-Stock Rate (%): Percentage of time the product is unavailable, with some extreme values.
+12. Market Share (%): Share of the market held by the product or company.
+13. Share of Shelf (%): Percentage of shelf space occupied by the product.
+14. Trial Rate (%): Percentage of consumers who tried the product.
+15. Repeat Rate (%): Percentage of consumers who purchased the product again.
+16. Sales Value (USD): Total sales in USD, with some values stored as strings or containing extreme outliers.
+17. Time: The sales timeframe, containing inconsistent formats (e.g., "2021-08-01" vs. "August 2021").
+18. Volume Sales: A supplementary column with mixed units and formats for volume sales (e.g., "70000 liters" vs. "70 kiloliters").
 
 ### Notes:
 - There are some missing values in the dataset, which will be addressed during the analysis phase.
