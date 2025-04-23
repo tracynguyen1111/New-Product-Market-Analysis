@@ -1,7 +1,15 @@
-# New Beverage Product Analysis
+# TCCC New Beverage Product Analysis
 
 ## Intro
-This project analyzes consumer preferences and market trends for launching a new beverage product. All data used is simulated and does not reflect anything from the companies I have worked for.
+FMCG (Fast-Moving Consumer Goods) companies frequently launch new products—it's normal for them to release new items every month. For large corporations, every action must serve a clear purpose. A product that costs millions of dollars to develop and launch must fulfill at least one strategic goal:
+
+(1) Stay Competitive: The market is highly saturated. Even top companies must constantly evolve just to maintain their position.
+
+(2) Meet Changing Consumer Needs: Trends, preferences, and lifestyles shift rapidly. Many FMCG products are designed to be temporary, catering to seasonal or short-term demands.
+
+(3) Drive Attention and Revenue: Whether short-lived or permanent, new products can bring significant profits or create jobs during clearance efforts. Many experts believe it's impossible to predict which products will succeed, so companies often follow a high-launch-volume strategy—despite the risk of wasting millions.
+
+From my perspective, product innovation is essential for FMCG companies to stay competitive and resilient in this fast-changing market. The real question is: which product should be launched?
 
 ## Tools Used
 - Python (pandas, matplotlib)
