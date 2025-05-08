@@ -16,9 +16,9 @@ From my perspective, product innovation is essential for FMCG companies to stay 
 - Jupyter Notebook
 
 ## Steps
-1. Data Cleaning
-2. Exploratory Data Analysis (EDA)
-3. Visualization of Key Insights
+1. Data Cleaning – Handle missing values and inconsistencies.
+2. Exploratory Data Analysis (EDA) – Understand the shape, trends, and relationships in the data.
+3. Insight Visualization – Plot patterns across demographics, regions, and innovation types.
 
 ## Results
 - Identified key demographic segments.
@@ -36,10 +36,11 @@ This dataset simulates 1,000 FMCG beverage products to explore:
 ### Notes:
 - There are some missing values in the dataset, which will be addressed during the analysis phase.
   
-## Setup
-To run this project:
-```bash
-pip install -r requirements.txt
-jupyter notebook
+## Key Results
+Uncovered high-potential product types based on performance KPIs.
+
+Isolated demographic and channel trends to inform launch strategy.
+
+Identified innovation types most associated with repeat purchases and market share growth.
 
 
