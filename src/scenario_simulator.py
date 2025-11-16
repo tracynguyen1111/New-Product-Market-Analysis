@@ -1,78 +1,103 @@
 from dataclasses import dataclass
-from typing import List, Tuple, Dict
+from typing import Dict, List
 
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-from sklearn.model_selection import train_test_split
 
 
 @dataclass
-class ModelResult:
-    model: RandomForestRegressor
-    metrics: Dict[str, float]
-    feature_importances: pd.DataFrame
-
-
-class TrialRepeatModeler:
+class ScenarioConfig:
     """
-    Train and evaluate models to predict KPIs such as trial rate, repeat rate, or market share.
+    Configuration for a launch scenario.
+    """
+    name: str
+    base_price_per_liter: float
+    price_multiplier: float
+    base_distribution_pct: float
+    distribution_multiplier: float
+    promo_depth_pct: float
+    oos_rate: float
+    channel_mix: Dict[str, float]  # example: {"Modern Trade": 0.5, "General Trade": 0.5}
+
+
+class ScenarioSimulator:
+    """
+    Simple simulation engine to model sales under different scenarios.
+    This is a toy model that uses elasticities and multipliers, not a production forecast.
     """
 
     def __init__(
         self,
-        target_col: str,
-        feature_cols: List[str],
-        test_size: float = 0.2,
-        random_state: int = 42,
+        base_df: pd.DataFrame,
+        price_elasticity: float = -1.2,
+        distribution_elasticity: float = 0.8,
+        promo_lift_per_point: float = 0.02,
     ):
-        self.target_col = target_col
-        self.feature_cols = feature_cols
-        self.test_size = test_size
-        self.random_state = random_state
+        self.base_df = base_df.copy()
+        self.price_elasticity = price_elasticity
+        self.distribution_elasticity = distribution_elasticity
+        self.promo_lift_per_point = promo_lift_per_point
 
-    def train_model(self, df: pd.DataFrame) -> ModelResult:
+    def simulate_scenario(self, config: ScenarioConfig) -> pd.DataFrame:
         """
-        Train a RandomForestRegressor and return model and metrics.
+        Simulate sales volume and value under a given scenario.
+
+        Returns a dataframe with simulated KPIs by channel.
         """
-        data = df.dropna(subset=[self.target_col] + self.feature_cols).copy()
+        df = self.base_df.copy()
 
-        X = data[self.feature_cols].values
-        y = data[self.target_col].values
-
-        X_train, X_test, y_train, y_test = train_test_split(
-            X,
-            y,
-            test_size=self.test_size,
-            random_state=self.random_state,
+        # Use base distribution and price from config as starting values
+        df["price_per_liter"] = config.base_price_per_liter * config.price_multiplier
+        df["distribution_pct"] = (
+            config.base_distribution_pct * config.distribution_multiplier
         )
 
-        model = RandomForestRegressor(
-            n_estimators=300,
-            max_depth=None,
-            random_state=self.random_state,
-            n_jobs=-1,
+        # Base volume anchor (could be mean historical volume)
+        if "sales_volume_liters" in df.columns:
+            base_volume = df["sales_volume_liters"].mean()
+        else:
+            base_volume = 10000.0
+
+        # Price effect
+        price_effect = (config.price_multiplier) ** self.price_elasticity
+
+        # Distribution effect
+        distribution_effect = (config.distribution_multiplier) ** self.distribution_elasticity
+
+        # Promo effect
+        promo_effect = 1 + self.promo_lift_per_point * config.promo_depth_pct
+
+        # Out of stock effect (simple linear loss)
+        oos_effect = 1 - config.oos_rate
+
+        df["simulated_volume_total"] = (
+            base_volume * price_effect * distribution_effect * promo_effect * oos_effect
         )
-        model.fit(X_train, y_train)
 
-        y_pred = model.predict(X_test)
+        # Allocate volume by channel mix
+        channel_rows: List[pd.DataFrame] = []
+        for channel, share in config.channel_mix.items():
+            channel_df = pd.DataFrame(
+                {
+                    "scenario_name": [config.name],
+                    "channel": [channel],
+                    "simulated_volume_liters": [df["simulated_volume_total"].iloc[0] * share],
+                    "price_per_liter": [df["price_per_liter"].iloc[0]],
+                }
+            )
+            channel_rows.append(channel_df)
 
-        metrics = {
-            "rmse": float(np.sqrt(mean_squared_error(y_test, y_pred))),
-            "mae": float(mean_absolute_error(y_test, y_pred)),
-            "r2": float(r2_score(y_test, y_pred)),
-        }
-
-        feature_importances = pd.DataFrame(
-            {
-                "feature": self.feature_cols,
-                "importance": model.feature_importances_,
-            }
-        ).sort_values("importance", ascending=False)
-
-        return ModelResult(
-            model=model,
-            metrics=metrics,
-            feature_importances=feature_importances,
+        result = pd.concat(channel_rows, ignore_index=True)
+        result["simulated_sales_value"] = (
+            result["simulated_volume_liters"] * result["price_per_liter"]
         )
+
+        return result
+
+    def compare_scenarios(self, configs: List[ScenarioConfig]) -> pd.DataFrame:
+        """
+        Run and concatenate multiple scenarios.
+        """
+        dfs = [self.simulate_scenario(cfg) for cfg in configs]
+        return pd.concat(dfs, ignore_index=True)
+
