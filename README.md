@@ -1,7 +1,7 @@
 # TCCC New Beverage Product Analysis
 
 ## Intro
-FMCG (Fast-Moving Consumer Goods) companies frequently launch new products—it's normal for them to release new items every month. For large corporations, every action must serve a clear purpose. A product that costs millions of dollars to develop and launch must fulfill at least one strategic goal:
+FMCG (Fast-Moving Consumer Goods) companies frequently launch new products, it's normal for them to release new items every month. For large corporations, every action must serve a clear purpose. A product that costs millions of dollars to develop and launch must fulfill at least one strategic goal:
 
 (1) Protect their position: Category competition is intense. Even market leaders must refresh their portfolio to hold share and visibility on shelves.
 
@@ -110,5 +110,6 @@ Files are organized into:
 │
 ├── requirements.txt
 └── README.md
-
+## License
+This project is released under the MIT License. See the `LICENSE` file for details.
 
